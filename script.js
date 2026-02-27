@@ -102,7 +102,7 @@
       ' ⦗ Dans la vie ⦘         ' + (o.objectifVie || '') + '\n' +
       ' ⦗ Autres ⦘             ' + (o.objectifAutres || '') + ' \n' +
       '╘════════════════════════════════╾┈\n\n' +
-      '-# Site pour faire la présentation: XXX';
+      '-# Site pour faire la présentation: https://thermonuclearxorgate.github.io/';
   }
 
   function afficherPersonnalite() {
