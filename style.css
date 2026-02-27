@@ -1,0 +1,377 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: #000;
+  color: #e0e0e0;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 2rem;
+}
+
+.vue-cachee {
+  display: none;
+}
+
+.btn-retour {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1.25rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.btn-retour.visible {
+  display: flex;
+}
+
+.btn-retour:hover {
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+.identite {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.identite h2 {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.identite .champ {
+  margin-bottom: 1rem;
+}
+
+.identite label {
+  display: block;
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.35rem;
+}
+
+.identite input,
+.identite textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.identite input:focus,
+.identite textarea:focus {
+  outline: none;
+  border-color: #555;
+}
+
+.identite textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.identite .btn-confirmer {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.identite .btn-confirmer:hover {
+  background: #16a34a;
+}
+
+.identite .btn-confirmer--erreur {
+  background: #dc2626 !important;
+}
+
+.identite .btn-confirmer--erreur:hover {
+  background: #b91c1c !important;
+}
+
+.identite .msg-erreur {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.identite .msg-erreur-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #dc2626;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.identite .msg-erreur-texte {
+  color: #dc2626;
+}
+
+/* Section Personnalité (même style que Identité) */
+.personnalite {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.personnalite h2 {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.personnalite .champ {
+  margin-bottom: 1rem;
+}
+
+.personnalite label {
+  display: block;
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.35rem;
+}
+
+.personnalite input,
+.personnalite textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.personnalite input:focus,
+.personnalite textarea:focus {
+  outline: none;
+  border-color: #555;
+}
+
+.personnalite textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.personnalite .btn-confirmer {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.personnalite .btn-confirmer:hover {
+  background: #16a34a;
+}
+
+.personnalite .btn-confirmer--erreur {
+  background: #dc2626 !important;
+}
+
+.personnalite .btn-confirmer--erreur:hover {
+  background: #b91c1c !important;
+}
+
+.personnalite .msg-erreur {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.personnalite .msg-erreur-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #dc2626;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.personnalite .msg-erreur-texte {
+  color: #dc2626;
+}
+
+/* Section Objectifs (même style que Identité / Personnalité) */
+.objectifs {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.objectifs h2 {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.objectifs .champ {
+  margin-bottom: 1rem;
+}
+
+.objectifs label {
+  display: block;
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.35rem;
+}
+
+.objectifs input,
+.objectifs textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.objectifs input:focus,
+.objectifs textarea:focus {
+  outline: none;
+  border-color: #555;
+}
+
+.objectifs textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.objectifs .btn-confirmer {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.objectifs .btn-confirmer:hover {
+  background: #16a34a;
+}
+
+.objectifs .btn-confirmer--erreur {
+  background: #dc2626 !important;
+}
+
+.objectifs .btn-confirmer--erreur:hover {
+  background: #b91c1c !important;
+}
+
+.objectifs .msg-erreur {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.objectifs .msg-erreur-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #dc2626;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.objectifs .msg-erreur-texte {
+  color: #dc2626;
+}
+
+/* Vue résultat : label à copier */
+#vue-resultat .resultat-contenu {
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#vue-resultat .label-copier {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  white-space: pre;
+  text-align: left;
+}
+
+#vue-resultat .label-copier:hover {
+  border-color: #555;
+  background: #252525;
+}
+
+#vue-resultat .label-copier-feedback {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #22c55e;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#vue-resultat .label-copier-feedback.visible {
+  opacity: 1;
+}
