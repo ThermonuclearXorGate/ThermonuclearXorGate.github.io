@@ -1,14 +1,24 @@
 (function () {
+  var VUES = ['identite', 'personnalite', 'objectifs', 'resultat'];
   var donneesIdentite = {};
   var donneesPersonnalite = {};
   var donneesObjectifs = {};
-  var vueIdentite = document.getElementById('vue-identite');
-  var vuePersonnalite = document.getElementById('vue-personnalite');
-  var vueObjectifs = document.getElementById('vue-objectifs');
-  var vueResultat = document.getElementById('vue-resultat');
-  var btnRetour = document.getElementById('btn-retour');
-  var labelCopier = document.getElementById('label-copier');
-  var labelCopierFeedback = document.getElementById('label-copier-feedback');
+  var vueCourante = 'identite';
+
+  var elements = {
+    vues: {
+      identite: document.getElementById('vue-identite'),
+      personnalite: document.getElementById('vue-personnalite'),
+      objectifs: document.getElementById('vue-objectifs'),
+      resultat: document.getElementById('vue-resultat')
+    },
+    btnRetour: document.getElementById('btn-retour'),
+    pastilles: document.getElementById('pastilles-etape'),
+    etapeNum: document.getElementById('etape-num'),
+    labelCopier: document.getElementById('label-copier'),
+    labelCopierFeedback: document.getElementById('label-copier-feedback'),
+    btnExport: document.getElementById('btn-export')
+  };
 
   function enleverErreurs(section) {
     if (!section) return;
@@ -79,54 +89,45 @@
     };
   }
 
+  function formatMultiligne(str) {
+    if (!str) return '';
+    var lines = str.split('\n');
+    return lines.map(function (line, i) {
+      if (i === 0) return line;
+      if (i === lines.length - 1) {
+        return '╚═════════╡  ' + line;
+      }
+      return '╠═════════╡  ' + line;
+    }).join('\n');
+  }
+
   function construireTexteResultat() {
     var p = donneesIdentite;
     var r = donneesPersonnalite;
     var o = donneesObjectifs;
     return '╒═══════════╡** IDENTITÉ **╞═══════════╾┈\n' +
-      ' ⦗ Prénom ⦘               ' + (p.prenom || '') + '\n' +
-      ' ⦗ Age ⦘                      ' + (p.age || '') + '\n' +
-      ' ⦗ Sexe/Pronom ⦘   ' + (p.sexePronom || '') + '\n' +
-      ' ⦗ Activité ⦘               ' + (p.activite || '') + '\n' +
-      ' ⦗ Études ⦘                  ' + (p.etudes || '') + '\n' +
-      ' ⦗ Origines ⦘               ' + (p.origines || '') + '\n' +
+      ' ⦗ Prénom ⦘               ' + formatMultiligne(p.prenom || '') + '\n' +
+      ' ⦗ Age ⦘                      ' + formatMultiligne(p.age || '') + '\n' +
+      ' ⦗ Sexe/Pronom ⦘   ' + formatMultiligne(p.sexePronom || '') + '\n' +
+      ' ⦗ Activité ⦘               ' + formatMultiligne(p.activite || '') + '\n' +
+      ' ⦗ Études ⦘                  ' + formatMultiligne(p.etudes || '') + '\n' +
+      ' ⦗ Origines ⦘               ' + formatMultiligne(p.origines || '') + '\n' +
       '╘═══════════════════════════════╾┈\n\n' +
       '╒═════════╡** PERSONNALITÉ **╞═════════╾┈\n' +
-      ' ⦗ Qualités ⦘    ' + (r.qualites || '') + '\n' +
-      ' ⦗ Défauts ⦘      ' + (r.defauts || '') + '\n' +
-      ' ⦗ Passions ⦘   ' + (r.passions || '') + '\n' +
+      ' ⦗ Qualités ⦘    ' + formatMultiligne(r.qualites || '') + '\n' +
+      ' ⦗ Défauts ⦘      ' + formatMultiligne(r.defauts || '') + '\n' +
+      ' ⦗ Passions ⦘   ' + formatMultiligne(r.passions || '') + '\n' +
       '╘═══════════════════════════════╾┈\n\n' +
       '╒═══════════╡** OBJECTIFS **╞═══════════╾┈\n' +
-      ' ⦗ Sur un mois ⦘   ' + (o.objectifMois || '') + '\n' +
-      ' ⦗ Sur un an  ⦘          ' + (o.objectifAn || '') + '\n' +
-      ' ⦗ Dans la vie ⦘         ' + (o.objectifVie || '') + '\n' +
-      ' ⦗ Autres ⦘             ' + (o.objectifAutres || '') + ' \n' +
+      ' ⦗ Sur un mois ⦘   ' + formatMultiligne(o.objectifMois || '') + '\n' +
+      ' ⦗ Sur un an  ⦘          ' + formatMultiligne(o.objectifAn || '') + '\n' +
+      ' ⦗ Dans la vie ⦘         ' + formatMultiligne(o.objectifVie || '') + '\n' +
+      ' ⦗ Autres ⦘             ' + formatMultiligne(o.objectifAutres || '') + ' \n' +
       '╘════════════════════════════════╾┈\n\n' +
       '-# Site pour faire la présentation: https://thermonuclearxorgate.github.io/';
   }
 
-  function afficherPersonnalite() {
-    vueIdentite.classList.add('vue-cachee');
-    vueObjectifs.classList.add('vue-cachee');
-    vueResultat.classList.add('vue-cachee');
-    vuePersonnalite.classList.remove('vue-cachee');
-    btnRetour.classList.add('visible');
-  }
-
-  function afficherObjectifs() {
-    vueIdentite.classList.add('vue-cachee');
-    vuePersonnalite.classList.add('vue-cachee');
-    vueResultat.classList.add('vue-cachee');
-    vueObjectifs.classList.remove('vue-cachee');
-    btnRetour.classList.add('visible');
-  }
-
-  function afficherIdentite() {
-    vuePersonnalite.classList.add('vue-cachee');
-    vueObjectifs.classList.add('vue-cachee');
-    vueResultat.classList.add('vue-cachee');
-    vueIdentite.classList.remove('vue-cachee');
-    btnRetour.classList.remove('visible');
+  function restaurerFormulaireIdentite() {
     document.getElementById('prenom').value = donneesIdentite.prenom || '';
     document.getElementById('age').value = donneesIdentite.age || '';
     document.getElementById('sexe-pronom').value = donneesIdentite.sexePronom || '';
@@ -135,14 +136,54 @@
     document.getElementById('origines').value = donneesIdentite.origines || '';
   }
 
-  function afficherResultat() {
-    var texte = construireTexteResultat();
-    if (labelCopier) labelCopier.textContent = texte;
-    vueIdentite.classList.add('vue-cachee');
-    vuePersonnalite.classList.add('vue-cachee');
-    vueObjectifs.classList.add('vue-cachee');
-    vueResultat.classList.remove('vue-cachee');
-    btnRetour.classList.remove('visible');
+  function mettreAJourPastilles(etape) {
+    if (!elements.pastilles || !elements.etapeNum) return;
+    if (etape === 0) {
+      elements.pastilles.classList.add('cachee');
+      elements.pastilles.setAttribute('aria-hidden', 'true');
+      return;
+    }
+    elements.pastilles.classList.remove('cachee');
+    elements.pastilles.setAttribute('aria-hidden', 'false');
+    elements.etapeNum.textContent = String(etape);
+    elements.pastilles.querySelectorAll('.pastille').forEach(function (pastille, i) {
+      if (i + 1 === etape) {
+        pastille.classList.add('pastille-active');
+      } else {
+        pastille.classList.remove('pastille-active');
+      }
+    });
+  }
+
+  function setVue(nom) {
+    vueCourante = nom;
+    VUES.forEach(function (id) {
+      var el = elements.vues[id];
+      if (el) {
+        if (id === nom) {
+          el.classList.remove('vue-cachee');
+        } else {
+          el.classList.add('vue-cachee');
+        }
+      }
+    });
+
+    if (nom === 'identite') {
+      elements.btnRetour.classList.remove('visible');
+      restaurerFormulaireIdentite();
+      mettreAJourPastilles(1);
+    } else if (nom === 'personnalite') {
+      elements.btnRetour.classList.add('visible');
+      mettreAJourPastilles(2);
+    } else if (nom === 'objectifs') {
+      elements.btnRetour.classList.add('visible');
+      mettreAJourPastilles(3);
+    } else if (nom === 'resultat') {
+      elements.btnRetour.classList.remove('visible');
+      mettreAJourPastilles(0);
+      var texte = construireTexteResultat();
+      if (elements.labelCopier) elements.labelCopier.textContent = texte;
+    }
   }
 
   document.addEventListener('click', function (e) {
@@ -156,26 +197,25 @@
 
     if (btn.getAttribute('data-vue') === 'identite') {
       enregistrerIdentite();
-      afficherPersonnalite();
-    }
-    else if (btn.getAttribute('data-vue') === 'personnalite') {
+      setVue('personnalite');
+    } else if (btn.getAttribute('data-vue') === 'personnalite') {
       enregistrerPersonnalite();
-      afficherObjectifs();
-    }
-    else if (btn.getAttribute('data-vue') === 'objectifs') {
+      setVue('objectifs');
+    } else if (btn.getAttribute('data-vue') === 'objectifs') {
       enregistrerObjectifs();
-      afficherResultat();
+      setVue('resultat');
     }
   });
 
-  if (labelCopier) {
-    labelCopier.addEventListener('click', function () {
-      var texte = (labelCopier.textContent || '').trim();
+  if (elements.labelCopier) {
+    elements.labelCopier.addEventListener('click', function () {
+      var texte = (elements.labelCopier.textContent || '').trim();
+      if (!texte) return;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(texte).then(function () {
-          labelCopierFeedback.classList.add('visible');
+          elements.labelCopierFeedback.classList.add('visible');
           setTimeout(function () {
-            labelCopierFeedback.classList.remove('visible');
+            elements.labelCopierFeedback.classList.remove('visible');
           }, 1500);
         });
       } else {
@@ -185,19 +225,37 @@
         input.select();
         document.execCommand('copy');
         document.body.removeChild(input);
-        labelCopierFeedback.classList.add('visible');
+        elements.labelCopierFeedback.classList.add('visible');
         setTimeout(function () {
-          labelCopierFeedback.classList.remove('visible');
+          elements.labelCopierFeedback.classList.remove('visible');
         }, 1500);
       }
     });
   }
 
-  btnRetour.addEventListener('click', function () {
-    if (!vueObjectifs.classList.contains('vue-cachee')) {
-      afficherPersonnalite();
+  if (elements.btnExport) {
+    elements.btnExport.addEventListener('click', function () {
+      var texte = (elements.labelCopier && elements.labelCopier.textContent) ? elements.labelCopier.textContent.trim() : construireTexteResultat();
+      if (!texte) return;
+      var blob = new Blob([texte], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'presentation-archi-lourd.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  elements.btnRetour.addEventListener('click', function () {
+    if (vueCourante === 'objectifs') {
+      setVue('personnalite');
     } else {
-      afficherIdentite();
+      setVue('identite');
     }
   });
+
+  mettreAJourPastilles(1);
 })();

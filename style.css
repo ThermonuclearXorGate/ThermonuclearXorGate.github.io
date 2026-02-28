@@ -41,209 +41,59 @@ html, body {
   border-color: #555;
 }
 
-.identite {
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.identite h2 {
-  color: #fff;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.identite .champ {
-  margin-bottom: 1rem;
-}
-
-.identite label {
-  display: block;
-  font-size: 0.85rem;
-  color: #999;
-  margin-bottom: 0.35rem;
-}
-
-.identite input,
-.identite textarea {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 6px;
-  color: #e0e0e0;
-  font-size: 1rem;
-}
-
-.identite input:focus,
-.identite textarea:focus {
-  outline: none;
-  border-color: #555;
-}
-
-.identite textarea {
-  min-height: 80px;
-  resize: vertical;
-}
-
-.identite .btn-confirmer {
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: #22c55e;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.identite .btn-confirmer:hover {
-  background: #16a34a;
-}
-
-.identite .btn-confirmer--erreur {
-  background: #dc2626 !important;
-}
-
-.identite .btn-confirmer--erreur:hover {
-  background: #b91c1c !important;
-}
-
-.identite .msg-erreur {
+.pastilles-etape {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.35rem;
-  color: #dc2626;
-  font-size: 0.85rem;
+  gap: 0.5rem;
+  z-index: 10;
 }
 
-.identite .msg-erreur-icone {
+.pastilles-etape.cachee {
+  display: none;
+}
+
+.pastille {
+  width: 1.5rem;
+  height: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  background: #dc2626;
-  color: #fff;
-  border-radius: 50%;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-.identite .msg-erreur-texte {
-  color: #dc2626;
-}
-
-/* Section Personnalité (même style que Identité) */
-.personnalite {
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.personnalite h2 {
-  color: #fff;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.personnalite .champ {
-  margin-bottom: 1rem;
-}
-
-.personnalite label {
-  display: block;
-  font-size: 0.85rem;
-  color: #999;
-  margin-bottom: 0.35rem;
-}
-
-.personnalite input,
-.personnalite textarea {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
   background: #1a1a1a;
   border: 1px solid #333;
-  border-radius: 6px;
-  color: #e0e0e0;
-  font-size: 1rem;
-}
-
-.personnalite input:focus,
-.personnalite textarea:focus {
-  outline: none;
-  border-color: #555;
-}
-
-.personnalite textarea {
-  min-height: 80px;
-  resize: vertical;
-}
-
-.personnalite .btn-confirmer {
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: #22c55e;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.personnalite .btn-confirmer:hover {
-  background: #16a34a;
-}
-
-.personnalite .btn-confirmer--erreur {
-  background: #dc2626 !important;
-}
-
-.personnalite .btn-confirmer--erreur:hover {
-  background: #b91c1c !important;
-}
-
-.personnalite .msg-erreur {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.35rem;
-  color: #dc2626;
-  font-size: 0.85rem;
-}
-
-.personnalite .msg-erreur-icone {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  background: #dc2626;
-  color: #fff;
   border-radius: 50%;
-  font-weight: 700;
-  font-size: 0.85rem;
+  color: #999;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.personnalite .msg-erreur-texte {
-  color: #dc2626;
+.pastille.pastille-active {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
 }
 
-/* Section Objectifs (même style que Identité / Personnalité) */
+.pastilles-texte {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.pastilles-texte strong {
+  color: #e0e0e0;
+}
+
+/* Sections formulaire : styles communs */
+.identite,
+.personnalite,
 .objectifs {
   max-width: 420px;
   margin: 0 auto;
 }
 
+.identite h2,
+.personnalite h2,
 .objectifs h2 {
   color: #fff;
   font-size: 1.25rem;
@@ -253,10 +103,14 @@ html, body {
   text-transform: uppercase;
 }
 
+.identite .champ,
+.personnalite .champ,
 .objectifs .champ {
   margin-bottom: 1rem;
 }
 
+.identite label,
+.personnalite label,
 .objectifs label {
   display: block;
   font-size: 0.85rem;
@@ -264,6 +118,10 @@ html, body {
   margin-bottom: 0.35rem;
 }
 
+.identite input,
+.identite textarea,
+.personnalite input,
+.personnalite textarea,
 .objectifs input,
 .objectifs textarea {
   width: 100%;
@@ -275,17 +133,25 @@ html, body {
   font-size: 1rem;
 }
 
+.identite input:focus,
+.identite textarea:focus,
+.personnalite input:focus,
+.personnalite textarea:focus,
 .objectifs input:focus,
 .objectifs textarea:focus {
   outline: none;
   border-color: #555;
 }
 
+.identite textarea,
+.personnalite textarea,
 .objectifs textarea {
-  min-height: 80px;
+  min-height: 44px;
   resize: vertical;
 }
 
+.identite .btn-confirmer,
+.personnalite .btn-confirmer,
 .objectifs .btn-confirmer {
   width: 100%;
   margin-top: 0.5rem;
@@ -299,18 +165,26 @@ html, body {
   cursor: pointer;
 }
 
+.identite .btn-confirmer:hover,
+.personnalite .btn-confirmer:hover,
 .objectifs .btn-confirmer:hover {
   background: #16a34a;
 }
 
+.identite .btn-confirmer--erreur,
+.personnalite .btn-confirmer--erreur,
 .objectifs .btn-confirmer--erreur {
   background: #dc2626 !important;
 }
 
+.identite .btn-confirmer--erreur:hover,
+.personnalite .btn-confirmer--erreur:hover,
 .objectifs .btn-confirmer--erreur:hover {
   background: #b91c1c !important;
 }
 
+.identite .msg-erreur,
+.personnalite .msg-erreur,
 .objectifs .msg-erreur {
   display: flex;
   align-items: center;
@@ -320,6 +194,8 @@ html, body {
   font-size: 0.85rem;
 }
 
+.identite .msg-erreur-icone,
+.personnalite .msg-erreur-icone,
 .objectifs .msg-erreur-icone {
   display: inline-flex;
   align-items: center;
@@ -333,15 +209,23 @@ html, body {
   font-size: 0.85rem;
 }
 
+.identite .msg-erreur-texte,
+.personnalite .msg-erreur-texte,
 .objectifs .msg-erreur-texte {
   color: #dc2626;
 }
 
-/* Vue résultat : label à copier */
+/* Vue résultat */
 #vue-resultat .resultat-contenu {
-  max-width: 420px;
+  max-width: 520px;
   margin: 0 auto;
   text-align: center;
+}
+
+#vue-resultat .resultat-invite {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: #999;
 }
 
 #vue-resultat .label-copier {
@@ -374,4 +258,23 @@ html, body {
 
 #vue-resultat .label-copier-feedback.visible {
   opacity: 1;
+}
+
+#vue-resultat .btn-export {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin: 1.25rem auto 0;
+  padding: 0.65rem 1rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+#vue-resultat .btn-export:hover {
+  background: #252525;
+  border-color: #555;
 }
