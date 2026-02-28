@@ -260,21 +260,17 @@ html, body {
   opacity: 1;
 }
 
-#vue-resultat .btn-export {
-  display: block;
-  width: 100%;
-  max-width: 280px;
-  margin: 1.25rem auto 0;
-  padding: 0.65rem 1rem;
-  background: #1a1a1a;
+.message-discord {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  background: rgba(26, 26, 26, 0.9);
   border: 1px solid #333;
   border-radius: 6px;
-  color: #e0e0e0;
-  font-size: 0.95rem;
-  cursor: pointer;
-}
-
-#vue-resultat .btn-export:hover {
-  background: #252525;
-  border-color: #555;
 }
