@@ -4,6 +4,8 @@
   var donneesPersonnalite = {};
   var donneesObjectifs = {};
   var vueCourante = 'identite';
+  var validationIgnored = false;
+  var actionEnAttente = null;
 
   var elements = {
     vues: {
@@ -17,48 +19,49 @@
     etapeNum: document.getElementById('etape-num'),
     labelCopier: document.getElementById('label-copier'),
     labelCopierFeedback: document.getElementById('label-copier-feedback'),
-    btnExport: document.getElementById('btn-export')
+    modalChampVide: document.getElementById('modal-champ-vide'),
+    modalBtnReecrire: document.getElementById('modal-btn-reecrire'),
+    modalBtnSuite: document.getElementById('modal-btn-suite')
   };
 
-  function enleverErreurs(section) {
-    if (!section) return;
-    section.querySelectorAll('.msg-erreur').forEach(function (el) {
-      el.remove();
-    });
-    var btn = section.querySelector('.btn-confirmer');
-    if (btn) btn.classList.remove('btn-confirmer--erreur');
-  }
-
-  function afficherErreur(champ) {
-    var msg = document.createElement('div');
-    msg.className = 'msg-erreur';
-    msg.innerHTML = '<span class="msg-erreur-icone">!</span><span class="msg-erreur-texte">Veuillez mettre quelque chose dans ce champ.</span>';
-    champ.appendChild(msg);
-  }
-
-  function validerSection(section) {
+  function sectionADesChampsVides(section) {
     var champs = section.querySelectorAll('.champ');
-    var btn = section.querySelector('.btn-confirmer');
-    enleverErreurs(section);
-
-    var hasError = false;
-    champs.forEach(function (champ) {
-      var input = champ.querySelector('input, textarea');
-      if (!input) return;
-      var value = (input.value || '').trim();
-      if (value === '') {
-        hasError = true;
-        afficherErreur(champ);
-      }
-    });
-
-    if (hasError && btn) {
-      btn.classList.add('btn-confirmer--erreur');
-      setTimeout(function () {
-        btn.classList.remove('btn-confirmer--erreur');
-      }, 2500);
+    for (var i = 0; i < champs.length; i++) {
+      var input = champs[i].querySelector('input, textarea');
+      if (input && (input.value || '').trim() === '') return true;
     }
-    return !hasError;
+    return false;
+  }
+
+  function afficherModalChampVide() {
+    if (elements.modalChampVide) {
+      elements.modalChampVide.classList.add('visible');
+      elements.modalChampVide.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  function fermerModalChampVide() {
+    if (elements.modalChampVide) {
+      elements.modalChampVide.classList.remove('visible');
+      elements.modalChampVide.setAttribute('aria-hidden', 'true');
+    }
+    actionEnAttente = null;
+  }
+
+  function executerActionEnAttente() {
+    if (!actionEnAttente) return;
+    var dataVue = actionEnAttente.dataVue;
+    if (dataVue === 'identite') {
+      enregistrerIdentite();
+      setVue('personnalite');
+    } else if (dataVue === 'personnalite') {
+      enregistrerPersonnalite();
+      setVue('objectifs');
+    } else if (dataVue === 'objectifs') {
+      enregistrerObjectifs();
+      setVue('resultat');
+    }
+    actionEnAttente = null;
   }
 
   function enregistrerIdentite() {
@@ -193,19 +196,39 @@
     var section = btn.closest('.identite, .personnalite, .objectifs');
     if (!section) return;
 
-    if (!validerSection(section)) return;
+    var dataVue = btn.getAttribute('data-vue');
+    var champsVides = sectionADesChampsVides(section);
 
-    if (btn.getAttribute('data-vue') === 'identite') {
+    if (!validationIgnored && champsVides) {
+      actionEnAttente = { dataVue: dataVue };
+      afficherModalChampVide();
+      return;
+    }
+
+    if (dataVue === 'identite') {
       enregistrerIdentite();
       setVue('personnalite');
-    } else if (btn.getAttribute('data-vue') === 'personnalite') {
+    } else if (dataVue === 'personnalite') {
       enregistrerPersonnalite();
       setVue('objectifs');
-    } else if (btn.getAttribute('data-vue') === 'objectifs') {
+    } else if (dataVue === 'objectifs') {
       enregistrerObjectifs();
       setVue('resultat');
     }
   });
+
+  if (elements.modalBtnReecrire) {
+    elements.modalBtnReecrire.addEventListener('click', function () {
+      fermerModalChampVide();
+    });
+  }
+  if (elements.modalBtnSuite) {
+    elements.modalBtnSuite.addEventListener('click', function () {
+      validationIgnored = true;
+      executerActionEnAttente();
+      fermerModalChampVide();
+    });
+  }
 
   if (elements.labelCopier) {
     elements.labelCopier.addEventListener('click', function () {

@@ -274,3 +274,74 @@ html, body {
   border: 1px solid #333;
   border-radius: 6px;
 }
+
+/* Carte modale champ vide */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+.modal-card {
+  max-width: 360px;
+  width: 100%;
+  padding: 1.5rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-card-texte {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+.modal-card-question {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-bottom: 1.25rem;
+}
+
+.modal-card-boutons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modal-btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #333;
+  background: #252525;
+  color: #e0e0e0;
+}
+
+.modal-btn:hover {
+  background: #333;
+  border-color: #555;
+}
+
+.modal-btn-suite {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+}
+
+.modal-btn-suite:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+}
