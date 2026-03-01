@@ -3,115 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Présentation Archi-Lourd</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Archi-Lourd Accueil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .page-accueil {
+      min-height: 100vh;
+      background: #000;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .cartes {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .carte {
+      display: block;
+      width: 100%;
+      max-width: 280px;
+      padding: 2rem 1.5rem;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 1.1rem;
+      text-align: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .carte:hover {
+      background: #252525;
+      border-color: #555;
+    }
+    .btn-accueil {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      text-decoration: none;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      z-index: 10;
+    }
+    .btn-accueil:hover {
+      color: #e0e0e0;
+      background: #252525;
+      border-color: #555;
+    }
+  </style>
 </head>
-<body>
-  <div class="pastilles-etape" id="pastilles-etape" aria-hidden="true">
-    <span class="pastille pastille-active" data-etape="1">1</span>
-    <span class="pastille" data-etape="2">2</span>
-    <span class="pastille" data-etape="3">3</span>
-    <span class="pastilles-texte">Étape <strong id="etape-num">1</strong>/3</span>
+<body class="page-accueil">
+  <a href="index.html" class="btn-accueil">Accueil</a>
+  <div class="cartes">
+    <a href="formulaire.html" class="carte">Générateur de Présentation</a>
+    <a href="pompes.html" class="carte">Pompes journalières</a>
   </div>
-  <button type="button" class="btn-retour" id="btn-retour" title="Revenir à l'identité" aria-label="Revenir à l'identité">
-    <svg class="btn-retour-fleche" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M19 12H5M12 19l-7-7 7-7"/>
-    </svg>
-  </button>
-
-  <div id="vue-identite" class="vue">
-    <section class="identite">
-      <h2>Identité</h2>
-      <div class="champ">
-        <label for="prenom">Prénom</label>
-        <textarea id="prenom" name="prenom" placeholder="Ton prénom (met pseudo si tu veut pas)" rows="2"></textarea>
-      </div>
-      <div class="champ">
-        <label for="age">Âge</label>
-        <textarea id="age" name="age" placeholder="Ton âge" rows="2"></textarea>
-      </div>
-      <div class="champ">
-        <label for="sexe-pronom">Sexe / Pronom</label>
-        <textarea id="sexe-pronom" name="sexe_pronom" placeholder="Homme / Femme / Autre" rows="2"></textarea>
-      </div>
-      <div class="champ">
-        <label for="activite">Activité</label>
-        <textarea id="activite" name="activite" placeholder="Ce que tu fait dans la vie (ex: Basketball, Ecriture)" rows="2"></textarea>
-      </div>
-      <div class="champ">
-        <label for="etudes">Études</label>
-        <textarea id="etudes" name="etudes" placeholder="Tes études" rows="2"></textarea>
-      </div>
-      <div class="champ">
-        <label for="origines">Origines</label>
-        <textarea id="origines" name="origines" placeholder="Tes origines"></textarea>
-      </div>
-      <button type="button" class="btn-confirmer" data-vue="identite">Continuer</button>
-    </section>
-  </div>
-
-  <div id="vue-personnalite" class="vue vue-cachee">
-    <section class="personnalite">
-      <h2>Personnalité</h2>
-      <div class="champ">
-        <label for="qualites">Qualités</label>
-        <textarea id="qualites" name="qualites" placeholder="Tes qualités"></textarea>
-      </div>
-      <div class="champ">
-        <label for="defauts">Défauts</label>
-        <textarea id="defauts" name="defauts" placeholder="Tes défauts (soit honnête, dit tous)"></textarea>
-      </div>
-      <div class="champ">
-        <label for="passions">Passions</label>
-        <textarea id="passions" name="passions" placeholder="Tes passions (Pas un truc comme Voyager ou autre chose générique, une vraie passion)"></textarea>
-      </div>
-      <button type="button" class="btn-confirmer" data-vue="personnalite">Continuer</button>
-    </section>
-  </div>
-
-  <div id="vue-objectifs" class="vue vue-cachee">
-    <section class="objectifs">
-      <h2>Objectifs</h2>
-      <div class="champ">
-        <label for="objectif-mois">Sur un mois</label>
-        <textarea id="objectif-mois" name="objectif_mois" placeholder="Objectifs sur un mois"></textarea>
-      </div>
-      <div class="champ">
-        <label for="objectif-an">Sur un an</label>
-        <textarea id="objectif-an" name="objectif_an" placeholder="Objectifs sur un an"></textarea>
-      </div>
-      <div class="champ">
-        <label for="objectif-vie">Dans la vie</label>
-        <textarea id="objectif-vie" name="objectif_vie" placeholder="Objectifs dans la vie"></textarea>
-      </div>
-      <div class="champ">
-        <label for="objectif-autres">Autres</label>
-        <textarea id="objectif-autres" name="objectif_autres" placeholder="Autres objectifs"></textarea>
-      </div>
-      <button type="button" class="btn-confirmer" data-vue="objectifs">Confirmer</button>
-    </section>
-  </div>
-
-  <div class="modal-overlay" id="modal-champ-vide" aria-hidden="true">
-    <div class="modal-card">
-      <p class="modal-card-texte">Une zone de texte n'a pas été remplie.</p>
-      <p class="modal-card-question">Voulez-vous la remplir ou passer à la suite ?</p>
-      <div class="modal-card-boutons">
-        <button type="button" class="modal-btn modal-btn-reecrire" id="modal-btn-reecrire">Réécrire</button>
-        <button type="button" class="modal-btn modal-btn-suite" id="modal-btn-suite">Passer à la suite</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="vue-resultat" class="vue vue-cachee">
-    <div class="resultat-contenu">
-      <p class="resultat-invite">Cliquer sur le bloc ci-dessous pour copier le texte.</p>
-      <label class="label-copier" id="label-copier" title="Cliquer pour copier"></label>
-      <span class="label-copier-feedback" id="label-copier-feedback" aria-live="polite">Copié !</span>
-    </div>
-    <p class="message-discord">Si vous avez une idée pour améliorer le site, envoyez un DM à @thermonuclearxorgate sur Discord.</p>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>

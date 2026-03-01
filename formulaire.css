@@ -1,0 +1,366 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: #000;
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  padding: 2rem;
+}
+
+.vue-cachee {
+  display: none;
+}
+
+.btn-retour {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1.25rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.btn-retour.visible {
+  display: flex;
+}
+
+.btn-retour:hover {
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+.pastilles-etape {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.pastilles-etape.cachee {
+  display: none;
+}
+
+.pastille {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 50%;
+  color: #999;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pastille.pastille-active {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+}
+
+.pastilles-texte {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.pastilles-texte strong {
+  color: #e0e0e0;
+}
+
+/* Sections formulaire : styles communs */
+.identite,
+.personnalite,
+.objectifs {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.identite h2,
+.personnalite h2,
+.objectifs h2 {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.identite .champ,
+.personnalite .champ,
+.objectifs .champ {
+  margin-bottom: 1rem;
+}
+
+.identite label,
+.personnalite label,
+.objectifs label {
+  display: block;
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.35rem;
+}
+
+.identite input,
+.identite textarea,
+.personnalite input,
+.personnalite textarea,
+.objectifs input,
+.objectifs textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.identite input:focus,
+.identite textarea:focus,
+.personnalite input:focus,
+.personnalite textarea:focus,
+.objectifs input:focus,
+.objectifs textarea:focus {
+  outline: none;
+  border-color: #555;
+}
+
+.identite textarea,
+.personnalite textarea,
+.objectifs textarea {
+  min-height: 44px;
+  resize: vertical;
+}
+
+.identite .btn-confirmer,
+.personnalite .btn-confirmer,
+.objectifs .btn-confirmer {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.identite .btn-confirmer:hover,
+.personnalite .btn-confirmer:hover,
+.objectifs .btn-confirmer:hover {
+  background: #16a34a;
+}
+
+.identite .btn-confirmer--erreur,
+.personnalite .btn-confirmer--erreur,
+.objectifs .btn-confirmer--erreur {
+  background: #dc2626 !important;
+}
+
+.identite .btn-confirmer--erreur:hover,
+.personnalite .btn-confirmer--erreur:hover,
+.objectifs .btn-confirmer--erreur:hover {
+  background: #b91c1c !important;
+}
+
+.identite .msg-erreur,
+.personnalite .msg-erreur,
+.objectifs .msg-erreur {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.identite .msg-erreur-icone,
+.personnalite .msg-erreur-icone,
+.objectifs .msg-erreur-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #dc2626;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.identite .msg-erreur-texte,
+.personnalite .msg-erreur-texte,
+.objectifs .msg-erreur-texte {
+  color: #dc2626;
+}
+
+/* Vue résultat */
+#vue-resultat .resultat-contenu {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#vue-resultat .resultat-invite {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: #999;
+}
+
+#vue-resultat .label-copier {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  white-space: pre;
+  text-align: left;
+}
+
+#vue-resultat .label-copier:hover {
+  border-color: #555;
+  background: #252525;
+}
+
+#vue-resultat .label-copier-feedback {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #22c55e;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#vue-resultat .label-copier-feedback.visible {
+  opacity: 1;
+}
+
+.message-discord {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid #333;
+  border-radius: 6px;
+}
+
+/* Carte modale champ vide */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+.modal-card {
+  max-width: 360px;
+  width: 100%;
+  padding: 1.5rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-card-texte {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+.modal-card-question {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-bottom: 1.25rem;
+}
+
+.modal-card-boutons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modal-btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #333;
+  background: #252525;
+  color: #e0e0e0;
+}
+
+.modal-btn:hover {
+  background: #333;
+  border-color: #555;
+}
+
+.modal-btn-suite {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+}
+
+.modal-btn-suite:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+.btn-accueil {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #888;
+  text-decoration: none;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  z-index: 10;
+}
+.btn-accueil:hover {
+  color: #e0e0e0;
+  background: #252525;
+  border-color: #555;
+}

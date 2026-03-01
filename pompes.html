@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archi-Lourd Pompes</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      min-height: 100%;
+      background: #000;
+      color: #e0e0e0;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .pompes-contenu {
+      text-align: center;
+    }
+    .pompes-variete {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .pompes-jours-restants {
+      font-size: 1rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+    .pompes-nombre {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .pompes-modificateur {
+      font-size: 3.75rem;
+      font-weight: 600;
+    }
+    .pompes-modificateur.x2 {
+      color: #f97316;
+    }
+    .pompes-modificateur.x3 {
+      color: #ef4444;
+    }
+    .pompes-modificateur.x10 {
+      color: #fbbf24;
+      animation: glitch 0.15s infinite;
+    }
+    .pompes-modificateur-valeur {
+      font-size: 4.5rem;
+      font-weight: 600;
+      color: #fff;
+      margin-top: 0.25rem;
+    }
+    @keyframes glitch {
+      0% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+      20% { transform: translate(-2px, 2px); text-shadow: 2px 0 #ef4444, -2px 0 #22c55e; }
+      40% { transform: translate(2px, -2px); text-shadow: -2px 0 #22c55e, 2px 0 #ef4444; }
+      60% { transform: translate(-2px, -2px); text-shadow: 2px 2px #ef4444, -2px -2px #22c55e; }
+      80% { transform: translate(2px, 2px); text-shadow: -2px 2px #22c55e, 2px -2px #ef4444; }
+      100% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+    }
+
+    .admin-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.85);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .admin-overlay.visible {
+      display: flex;
+    }
+    .admin-modal {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 360px;
+      width: 100%;
+    }
+    .admin-modal h3 {
+      color: #fff;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    .admin-champ {
+      margin-bottom: 1rem;
+    }
+    .admin-champ label {
+      display: block;
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 0.35rem;
+    }
+    .admin-champ input,
+    .admin-champ select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      background: #252525;
+      border: 1px solid #444;
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 1rem;
+    }
+    .admin-boutons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .admin-boutons button {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: 1px solid #444;
+      background: #252525;
+      color: #e0e0e0;
+    }
+    .admin-boutons button:hover {
+      background: #333;
+    }
+    .admin-boutons button.primary {
+      background: #22c55e;
+      border-color: #22c55e;
+      color: #fff;
+    }
+    .admin-boutons button.primary:hover {
+      background: #16a34a;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-overlay" id="admin-overlay">
+    <div class="admin-modal">
+      <h3>Test — Modifier les valeurs</h3>
+      <div class="admin-champ">
+        <label for="admin-nombre">Nombre de pompes</label>
+        <input type="number" id="admin-nombre" min="1" max="10000" value="50">
+      </div>
+      <div class="admin-champ">
+        <label for="admin-variete">Type de pompes</label>
+        <select id="admin-variete">
+          <option value="Pompes Diamant">Pompes Diamant</option>
+          <option value="Pompes sur une jambe">Pompes sur une jambe</option>
+          <option value="Pompes Hindoues">Pompes Hindoues</option>
+          <option value="Pompes claquées">Pompes claquées</option>
+          <option value="Pompes classiques">Pompes classiques</option>
+        </select>
+      </div>
+      <div class="admin-champ">
+        <label for="admin-jours">Jours restants</label>
+        <select id="admin-jours">
+          <option value="0">0 jours restants</option>
+          <option value="1">1 jour restant</option>
+          <option value="2">2 jours restants</option>
+        </select>
+      </div>
+      <div class="admin-champ">
+        <label for="admin-modif">Modificateur</label>
+        <select id="admin-modif">
+          <option value="">Aucun</option>
+          <option value="2">× 2</option>
+          <option value="3">× 3</option>
+          <option value="10">× 10</option>
+        </select>
+      </div>
+      <div class="admin-boutons">
+        <button type="button" id="admin-reset">Réinitialiser</button>
+        <button type="button" class="primary" id="admin-apply">Appliquer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pompes-contenu">
+    <div class="pompes-variete" id="pompes-variete"></div>
+    <div class="pompes-jours-restants" id="pompes-jours-restants"></div>
+    <div class="pompes-nombre" id="pompes-nombre"></div>
+    <div class="pompes-modificateur" id="pompes-modificateur"></div>
+    <div class="pompes-modificateur-valeur" id="pompes-modificateur-valeur"></div>
+  </div>
+  <script>
+    (function () {
+      var varietes = [
+        'Pompes Diamant',
+        'Pompes sur une jambe',
+        'Pompes Hindoues',
+        'Pompes claquées',
+        'Pompes classiques'
+      ];
+
+      var overrideNombre = null;
+      var overrideVariete = null;
+      var overrideJoursRestants = null;
+      var overrideModif = null;
+
+      var computedNombre, computedVariete, computedJoursRestants, computedModif;
+
+      function calcValeurs() {
+        var d = new Date();
+        var seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+
+        function seededRandom(s) {
+          var x = Math.sin(s) * 10000;
+          return x - Math.floor(x);
+        }
+
+        var r = seededRandom(seed);
+        var nombre = Math.floor(r * (100 - 20 + 1)) + 20;
+
+        var epoch = new Date(2020, 0, 1);
+        var diffDays = Math.floor((d - epoch) / (1000 * 60 * 60 * 24));
+        var varieteIndex = Math.floor(diffDays / 3) % varietes.length;
+        var variete = varietes[varieteIndex];
+        var joursRestants = 2 - (diffDays % 3);
+        var modificateur = null;
+
+        if (variete === 'Pompes claquées') {
+          nombre = Math.round(nombre / 2);
+        }
+
+        var rollModif = seededRandom(seed + 999);
+        if (rollModif < 0.01) {
+          modificateur = 10;
+          nombre = nombre * 10;
+        } else if (rollModif < 0.06) {
+          modificateur = 3;
+          nombre = nombre * 3;
+        } else if (rollModif < 0.26) {
+          modificateur = 2;
+          nombre = nombre * 2;
+        }
+
+        computedNombre = nombre;
+        computedVariete = variete;
+        computedJoursRestants = joursRestants;
+        computedModif = modificateur;
+      }
+
+      function getTexteJours(j) {
+        return j === 1 ? '1 jour restant' : j + ' jours restants';
+      }
+
+      function afficher() {
+        var nombreFinal = overrideNombre !== null ? overrideNombre : computedNombre;
+        var variete = overrideVariete !== null ? overrideVariete : computedVariete;
+        var joursRestants = overrideJoursRestants !== null ? overrideJoursRestants : computedJoursRestants;
+        var modif = overrideModif !== null ? overrideModif : computedModif;
+
+        var nombreAffiche = modif ? Math.floor(nombreFinal / modif) : nombreFinal;
+
+        document.getElementById('pompes-variete').textContent = variete;
+        document.getElementById('pompes-jours-restants').textContent = getTexteJours(joursRestants);
+        document.getElementById('pompes-nombre').textContent = nombreAffiche + (modif ? '' : ' pompes');
+
+        var elModif = document.getElementById('pompes-modificateur');
+        var elModifValeur = document.getElementById('pompes-modificateur-valeur');
+        if (modif) {
+          elModif.textContent = '× ' + modif;
+          elModif.className = 'pompes-modificateur x' + modif;
+          elModif.style.display = '';
+          elModifValeur.textContent = '= ' + nombreFinal + ' pompes';
+          elModifValeur.style.display = '';
+        } else {
+          elModif.style.display = 'none';
+          elModifValeur.style.display = 'none';
+        }
+      }
+
+      calcValeurs();
+      afficher();
+
+      var keysPressed = {};
+      document.addEventListener('keydown', function (e) {
+        var k = (e.key || '').toLowerCase();
+        keysPressed[k] = true;
+        if (keysPressed['a'] && keysPressed['d'] && keysPressed['m'] && keysPressed['i'] && keysPressed['n']) {
+          var modifAff = overrideModif !== null ? overrideModif : computedModif;
+          var finalAff = overrideNombre !== null ? overrideNombre : computedNombre;
+          document.getElementById('admin-nombre').value = modifAff ? Math.floor(finalAff / modifAff) : finalAff;
+          document.getElementById('admin-variete').value = overrideVariete !== null ? overrideVariete : computedVariete;
+          document.getElementById('admin-jours').value = String(overrideJoursRestants !== null ? overrideJoursRestants : computedJoursRestants);
+          document.getElementById('admin-modif').value = overrideModif !== null ? String(overrideModif) : (computedModif ? String(computedModif) : '');
+          document.getElementById('admin-overlay').classList.add('visible');
+        }
+      });
+      document.addEventListener('keyup', function (e) {
+        keysPressed[(e.key || '').toLowerCase()] = false;
+      });
+
+      document.getElementById('admin-apply').addEventListener('click', function () {
+        var baseInput = parseInt(document.getElementById('admin-nombre').value, 10) || 1;
+        overrideModif = document.getElementById('admin-modif').value ? parseInt(document.getElementById('admin-modif').value, 10) : null;
+        overrideNombre = overrideModif ? baseInput * overrideModif : baseInput;
+        overrideVariete = document.getElementById('admin-variete').value;
+        overrideJoursRestants = parseInt(document.getElementById('admin-jours').value, 10);
+        afficher();
+        document.getElementById('admin-overlay').classList.remove('visible');
+      });
+
+      document.getElementById('admin-reset').addEventListener('click', function () {
+        overrideNombre = null;
+        overrideVariete = null;
+        overrideJoursRestants = null;
+        overrideModif = null;
+        calcValeurs();
+        afficher();
+        document.getElementById('admin-overlay').classList.remove('visible');
+      });
+    })();
+  </script>
+</body>
+</html>

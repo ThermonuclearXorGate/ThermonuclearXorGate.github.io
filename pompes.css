@@ -1,0 +1,173 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  min-height: 100%;
+  background: #000;
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.pompes-probas {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #999;
+  z-index: 5;
+}
+.pompes-probas-titre {
+  font-weight: 600;
+  color: #bbb;
+  margin-bottom: 0.35rem;
+}
+.pompes-probas-ligne {
+  margin-bottom: 0.15rem;
+}
+.pompes-probas-ligne:last-child {
+  margin-bottom: 0;
+}
+
+.pompes-contenu {
+  text-align: center;
+}
+.pompes-variete {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+.pompes-jours-restants {
+  font-size: 1rem;
+  color: #999;
+  margin-bottom: 1rem;
+}
+.pompes-nombre {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.pompes-modificateur {
+  font-size: 3.75rem;
+  font-weight: 600;
+}
+.pompes-modificateur.x2 {
+  color: #f97316;
+}
+.pompes-modificateur.x3 {
+  color: #ef4444;
+}
+.pompes-modificateur.x10 {
+  color: #fbbf24;
+  animation: glitch 0.15s infinite;
+}
+.pompes-modificateur-valeur {
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 0.25rem;
+}
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+  20% { transform: translate(-2px, 2px); text-shadow: 2px 0 #ef4444, -2px 0 #22c55e; }
+  40% { transform: translate(2px, -2px); text-shadow: -2px 0 #22c55e, 2px 0 #ef4444; }
+  60% { transform: translate(-2px, -2px); text-shadow: 2px 2px #ef4444, -2px -2px #22c55e; }
+  80% { transform: translate(2px, 2px); text-shadow: -2px 2px #22c55e, 2px -2px #ef4444; }
+  100% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+}
+
+.admin-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.admin-overlay.visible {
+  display: flex;
+}
+.admin-modal {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1.5rem;
+  max-width: 360px;
+  width: 100%;
+}
+.admin-modal h3 {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+.admin-champ {
+  margin-bottom: 1rem;
+}
+.admin-champ label {
+  display: block;
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.35rem;
+}
+.admin-champ input,
+.admin-champ select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: #252525;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+.admin-boutons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.admin-boutons button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: 1px solid #444;
+  background: #252525;
+  color: #e0e0e0;
+}
+.admin-boutons button:hover {
+  background: #333;
+}
+.admin-boutons button.primary {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+}
+.admin-boutons button.primary:hover {
+  background: #16a34a;
+}
+
+.btn-accueil {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #888;
+  text-decoration: none;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  z-index: 10;
+}
+.btn-accueil:hover {
+  color: #e0e0e0;
+  background: #252525;
+  border-color: #555;
+}
