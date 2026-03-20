@@ -135,9 +135,39 @@
     .admin-boutons button.primary:hover {
       background: #16a34a;
     }
+    .btn-accueil {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      text-decoration: none;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-accueil svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      flex-shrink: 0;
+    }
+    .btn-accueil:hover {
+      color: #e0e0e0;
+      background: #252525;
+      border-color: #555;
+    }
   </style>
 </head>
 <body>
+  <a href="index.html" class="btn-accueil" aria-label="Accueil">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Accueil</span>
+  </a>
   <div class="admin-overlay" id="admin-overlay">
     <div class="admin-modal">
       <h3>Test — Modifier les valeurs</h3>

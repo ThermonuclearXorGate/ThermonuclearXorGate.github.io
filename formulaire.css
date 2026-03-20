@@ -358,6 +358,14 @@ html, body {
   border: 1px solid #333;
   border-radius: 6px;
   z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-accueil svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
 }
 .btn-accueil:hover {
   color: #e0e0e0;

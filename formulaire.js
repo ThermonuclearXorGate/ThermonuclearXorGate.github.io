@@ -68,7 +68,7 @@
     donneesIdentite = {
       prenom: (document.getElementById('prenom').value || '').trim(),
       age: (document.getElementById('age').value || '').trim(),
-      sexePronom: (document.getElementById('sexe-pronom').value || '').trim(),
+      genrePronom: (document.getElementById('genre-pronom').value || '').trim(),
       activite: (document.getElementById('activite').value || '').trim(),
       etudes: (document.getElementById('etudes').value || '').trim(),
       origines: (document.getElementById('origines').value || '').trim()
@@ -109,23 +109,23 @@
     var r = donneesPersonnalite;
     var o = donneesObjectifs;
     return '╒═══════════╡** IDENTITÉ **╞═══════════╾┈\n' +
-      ' ⦗ Prénom ⦘               ' + formatMultiligne(p.prenom || '') + '\n' +
-      ' ⦗ Age ⦘                      ' + formatMultiligne(p.age || '') + '\n' +
-      ' ⦗ Sexe/Pronom ⦘   ' + formatMultiligne(p.sexePronom || '') + '\n' +
-      ' ⦗ Activité ⦘            ' + formatMultiligne(p.activite || '') + '\n' +
-      ' ⦗ Études ⦘         ' + formatMultiligne(p.etudes || '') + '\n' +
-      ' ⦗ Origines ⦘            ' + formatMultiligne(p.origines || '') + '\n' +
+      ' ⦗ Prénom ⦘                    ' + formatMultiligne(p.prenom || '') + '\n' +
+      ' ⦗ Age ⦘                             ' + formatMultiligne(p.age || '') + '\n' +
+      ' ⦗ Genre/Pronom ⦘     ' + formatMultiligne(p.genrePronom || '') + '\n' +
+      ' ⦗ Activité ⦘                          ' + formatMultiligne(p.activite || '') + '\n' +
+      ' ⦗ Études ⦘                                      ' + formatMultiligne(p.etudes || '') + '\n' +
+      ' ⦗ Origines ⦘                      ' + formatMultiligne(p.origines || '') + '\n' +
       '╘═══════════════════════════════╾┈\n\n' +
       '╒═════════╡** PERSONNALITÉ **╞═════════╾┈\n' +
-      ' ⦗ Qualités ⦘    ' + formatMultiligne(r.qualites || '') + '\n' +
-      ' ⦗ Défauts ⦘    ' + formatMultiligne(r.defauts || '') + '\n' +
+      ' ⦗ Qualités ⦘      ' + formatMultiligne(r.qualites || '') + '\n' +
+      ' ⦗ Défauts ⦘      ' + formatMultiligne(r.defauts || '') + '\n' +
       ' ⦗ Passions ⦘   ' + formatMultiligne(r.passions || '') + '\n' +
       '╘═══════════════════════════════╾┈\n\n' +
       '╒═══════════╡** OBJECTIFS **╞═══════════╾┈\n' +
-      ' ⦗ Sur un mois ⦘   ' + formatMultiligne(o.objectifMois || '') + '\n' +
-      ' ⦗ Sur un an  ⦘      ' + formatMultiligne(o.objectifAn || '') + '\n' +
-      ' ⦗ Dans la vie ⦘    ' + formatMultiligne(o.objectifVie || '') + '\n' +
-      ' ⦗ Autres ⦘         ' + formatMultiligne(o.objectifAutres || '') + ' \n' +
+      ' ⦗ Sur un mois ⦘     ' + formatMultiligne(o.objectifMois || '') + '\n' +
+      ' ⦗ Sur un an  ⦘         ' + formatMultiligne(o.objectifAn || '') + '\n' +
+      ' ⦗ Dans la vie ⦘      ' + formatMultiligne(o.objectifVie || '') + '\n' +
+      ' ⦗ Autres ⦘             ' + formatMultiligne(o.objectifAutres || '') + ' \n' +
       '╘════════════════════════════════╾┈\n\n' +
       '-# Site pour faire la présentation: https://thermonuclearxorgate.github.io/';
   }
@@ -133,7 +133,7 @@
   function restaurerFormulaireIdentite() {
     document.getElementById('prenom').value = donneesIdentite.prenom || '';
     document.getElementById('age').value = donneesIdentite.age || '';
-    document.getElementById('sexe-pronom').value = donneesIdentite.sexePronom || '';
+    document.getElementById('genre-pronom').value = donneesIdentite.genrePronom || '';
     document.getElementById('activite').value = donneesIdentite.activite || '';
     document.getElementById('etudes').value = donneesIdentite.etudes || '';
     document.getElementById('origines').value = donneesIdentite.origines || '';
